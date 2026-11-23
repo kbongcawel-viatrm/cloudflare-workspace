@@ -6,7 +6,8 @@ description: Prepare, validate, deploy, and verify a project's rootless Podman c
 # Podman project container workflow
 
 Runs BEFORE `workspace-deploy`/project release whenever a project needs a
-container. All podman/podman-compose commands MUST go through the host
+container — and only after `workspace-validate` has passed in
+`projects/<name>/`. All podman/podman-compose commands MUST go through the host
 wrappers so they execute on the host, not inside Toolbox:
 
 - `./scripts/podman-compose-host.sh` — podman-compose on the host

@@ -19,15 +19,17 @@ gates; never claim success without verification.
   trigger the operator's polkit auth prompt — always tell the operator to
   approve it. Destructive operations still need explicit approval first.
 
-## 1. Validate (always first)
+## 1. Validate (always first — before ANY deploy step)
 
 ```bash
 cd projects/<name>
 workspace-validate          # or: bash scripts/workspace-validate.sh
 ```
 
-Must pass: bash/JS syntax, `npm test`, `tsc --noEmit`, build, and
-`wrangler deploy --dry-run`. Do not deploy on failure.
+Must pass before proceeding to Worker deploy OR podman steps: bash/JS
+syntax, `npm test`, `tsc --noEmit`, build, and `wrangler deploy --dry-run`
+(packaging check incl. KV/binding resolution — do not pass
+`--skip-wrangler` unless the operator asks). Do not deploy on failure.
 
 ## 2. Worker deploy — pick ONE, with approval
 
