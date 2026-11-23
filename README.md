@@ -1,4 +1,23 @@
 # Cloudflare App Workspace
+[Cloudflare](https://img.shields.io/badge/just%20the%20message-#F38020)
+[Cloudflare Workers](https://img.shields.io/badge/just%20the%20message-#F38020)
+[Vite](https://img.shields.io/badge/just%20the%20message-9135FF)
+
+## Repository
+![GitHub repo](https://github-readme-insight-terminal-asci.vercel.app/svg/repo?repo=kbongcawel-viatrm/cloudflare-workspace&theme=mac)
+
+<img src="https://github-readme-insight-terminal-asci.vercel.app/svg/repo?repo=kbongcawel-viatrm/cloudflare-workspace&amp;theme=mac" alt="GitHub repo">
+
+## Stack
+![Skills](https://github-readme-insight-terminal-asci.vercel.app/svg/skills?i=vite,react,cloudflare,cloudflareworkers,githubactions,github,&theme=mac&perline=10)
+
+<img src="https://github-readme-insight-terminal-asci.vercel.app/svg/skills?i=vite,react,cloudflare,cloudflareworkers,githubactions,github,&amp;theme=mac&amp;perline=10" alt="Skills">
+
+## Last commit
+![Recent commits](https://github-readme-insight-terminal-asci.vercel.app/svg/git-log?user=kbongcawel-viatrm&theme=mac&lines=3)
+
+<img src="https://github-readme-insight-terminal-asci.vercel.app/svg/git-log?user=kbongcawel-viatrm&amp;theme=mac&amp;lines=3" alt="Recent commits">
+
 
 Reusable starter for GitHub + GitHub Actions + Cloudflare Workers projects, including Codespaces and a portable AI-agent workspace.
 
@@ -276,3 +295,8 @@ The generated `.bashrc` imports portable terminal/status helpers only. The origi
 ## Local validation
 
 Run `workspace-validate` before pushing. It performs Bash and JavaScript syntax checks, `npm test`, TypeScript type-check, application build, and Wrangler packaging dry-run. It does not deploy or change Cloudflare resources. The same validation command is used by GitHub Actions before deployment.
+
+## Author
+![ASCII avatar](https://github-readme-insight-terminal-asci.vercel.app/svg/ascii?user=kbongcawel-viatrm&theme=mac&cols=24&color=1)
+
+<img src="https://github-readme-insight-terminal-asci.vercel.app/svg/ascii?user=kbongcawel-viatrm&amp;theme=mac&amp;cols=24&amp;color=1" alt="ASCII avatar">
