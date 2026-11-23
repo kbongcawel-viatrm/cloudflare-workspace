@@ -8,6 +8,11 @@ description: Deploy a cloudflare-workspace project end to end — validate, push
 Deploys a `projects/<name>/` app from this workspace. Never skip approval
 gates; never claim success without verification.
 
+Gate order is strict: **`workspace-validate` first — if it succeeds,
+proceed with deploy; if it fails, stop and debug the problem.** No deploy
+step (Worker, Cloudflare resources, or containers) runs on a red
+validation.
+
 ## 0. Preconditions
 
 - `CLOUDFLARE_ACCOUNT_ID` exported (see `~/.config/cf-creds.env`).
@@ -29,7 +34,12 @@ workspace-validate          # or: bash scripts/workspace-validate.sh
 Must pass before proceeding to Worker deploy OR podman steps: bash/JS
 syntax, `npm test`, `tsc --noEmit`, build, and `wrangler deploy --dry-run`
 (packaging check incl. KV/binding resolution — do not pass
-`--skip-wrangler` unless the operator asks). Do not deploy on failure.
+`--skip-wrangler` unless the operator asks).
+
+- **Pass** → continue to step 2.
+- **Fail** → STOP. Debug the failure (read the error, reproduce minimally,
+  fix root cause), re-run `workspace-validate`, and only proceed once it
+  is green. Never deploy around a failing check.
 
 ## 2. Worker deploy — pick ONE, with approval
 
