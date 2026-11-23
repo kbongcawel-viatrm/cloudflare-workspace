@@ -12,7 +12,13 @@ USAGE
 }
 die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 
-ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+while [[ -L "$SCRIPT_PATH" ]]; do
+  _dir="$(cd -P "$(dirname -- "$SCRIPT_PATH")" && pwd)"
+  SCRIPT_PATH="$(readlink -- "$SCRIPT_PATH")"
+  [[ "$SCRIPT_PATH" != /* ]] && SCRIPT_PATH="$_dir/$SCRIPT_PATH"
+done
+ROOT="$(cd -P "$(dirname -- "$SCRIPT_PATH")/.." && pwd)"
 TEMPLATE="$ROOT/.cline/mcp.json"
 CONFIG="${CLINE_MCP_CONFIG:-$HOME/.cline/cline_mcp_settings.json}"
 GITHUB_TOKEN="${GITHUB_MCP_TOKEN:-}"

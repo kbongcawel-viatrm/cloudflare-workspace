@@ -39,8 +39,14 @@ gh auth status >/dev/null 2>&1 || die "Run gh auth login first."
 wrangler --version >/dev/null 2>&1 || die "Wrangler missing. Run npm install -g wrangler."
 wrangler whoami >/dev/null 2>&1 || die "Run wrangler login first."
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-TEMPLATE_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+while [[ -L "$SCRIPT_PATH" ]]; do
+  _dir="$(cd -P "$(dirname -- "$SCRIPT_PATH")" && pwd)"
+  SCRIPT_PATH="$(readlink -- "$SCRIPT_PATH")"
+  [[ "$SCRIPT_PATH" != /* ]] && SCRIPT_PATH="$_dir/$SCRIPT_PATH"
+done
+SCRIPT_DIR="$(cd -P "$(dirname -- "$SCRIPT_PATH")" && pwd)"
+TEMPLATE_ROOT="$(cd -P "$SCRIPT_DIR/.." && pwd)"
 OWNER="$(gh api user --jq .login)"
 REPO="$OWNER/$PROJECT_NAME"
 TARGET_DIR="$PWD/$PROJECT_NAME"

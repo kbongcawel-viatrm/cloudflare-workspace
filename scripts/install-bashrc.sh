@@ -11,7 +11,13 @@ while (($#)); do
   esac
 done
 
-ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+while [[ -L "$SCRIPT_PATH" ]]; do
+  _dir="$(cd -P "$(dirname -- "$SCRIPT_PATH")" && pwd)"
+  SCRIPT_PATH="$(readlink -- "$SCRIPT_PATH")"
+  [[ "$SCRIPT_PATH" != /* ]] && SCRIPT_PATH="$_dir/$SCRIPT_PATH"
+done
+ROOT="$(cd -P "$(dirname -- "$SCRIPT_PATH")/.." && pwd)"
 PROFILE="$ROOT/.bashrc"
 TARGET="$HOME/.bashrc.workspace"
 USER_BASHRC="$HOME/.bashrc"
