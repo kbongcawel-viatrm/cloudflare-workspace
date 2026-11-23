@@ -1,0 +1,25 @@
+{
+  "name": "cloudflare-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "node scripts/build-check.mjs",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test",
+    "validate": "bash scripts/workspace-validate.sh"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "wrangler": "^4.45.0"
+  },
+  "bin": {
+    "workspace-init": "scripts/workspace-init.sh",
+    "workspace-push": "scripts/workspace-push.sh",
+    "workspace-destroy": "scripts/workspace-destroy.sh",
+    "workspace-validate": "scripts/workspace-validate.sh",
+    "install-mcp-servers": "scripts/install-mcp-servers.sh"
+  }
+}

@@ -1,0 +1,1 @@
+Read `/AGENTS.md` and `.agents/rules/working-agreement.md` before substantial changes. Search `.agents/skills/` and read applicable `SKILL.md` files. Keep credentials and local agent state out of Git. Obtain explicit approval before deployment, DNS/resource changes, permission changes, or pushes. Validate and report actual results.
