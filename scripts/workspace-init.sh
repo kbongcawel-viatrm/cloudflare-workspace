@@ -10,7 +10,7 @@ Creates a repository from this template, configures Wrangler, seeds GitHub
 Actions secrets, clones the new project, and installs the project Bash profile.
 USAGE
 }
-die() { printf 'ERROR: %s\\n' "$*" >&2; exit 1; }
+die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 need() { command -v "$1" >/dev/null 2>&1 || die "Required command not found: $1"; }
 
 if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then usage; exit 0; fi
@@ -33,7 +33,7 @@ done
 
 [[ "$PROJECT_NAME" =~ ^[a-zA-Z0-9][a-zA-Z0-9._-]{0,95}$ ]] || die "Invalid project name."
 [[ "$VISIBILITY" == private || "$VISIBILITY" == public ]] || die "Visibility must be private or public."
-[[ -z "$CUSTOM_DOMAIN" || "$CUSTOM_DOMAIN" =~ ^([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,}$ ]] || die "Invalid custom domain."
+[[ -z "$CUSTOM_DOMAIN" || "$CUSTOM_DOMAIN" =~ ^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$ ]] || die "Invalid custom domain."
 for cmd in git gh jq node npm npx bash; do need "$cmd"; done
 gh auth status >/dev/null 2>&1 || die "Run gh auth login first."
 wrangler --version >/dev/null 2>&1 || die "Wrangler missing. Run npm install -g wrangler."
@@ -49,7 +49,7 @@ ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-}"
 [[ -n "$ACCOUNT_ID" ]] || die "Set CLOUDFLARE_ACCOUNT_ID to the intended Cloudflare account ID."
 gh repo view "$REPO" >/dev/null 2>&1 && die "Repository already exists: $REPO"
 
-printf 'Creating %s (%s) from template\\n' "$REPO" "$VISIBILITY"
+printf 'Creating %s (%s) from template\n' "$REPO" "$VISIBILITY"
 gh repo create "$REPO" "--$VISIBILITY" --template "$OWNER/cloudflare-app-workspace" --clone=false
 git clone "https://github.com/$REPO.git" "$TARGET_DIR"
 cd -- "$TARGET_DIR"
@@ -71,7 +71,7 @@ if (( INSTALL_MCP )); then
 fi
 
 read -rsp "Cloudflare API token for GitHub Actions (input hidden): " CF_TOKEN
-printf '\\n'
+printf '\n'
 [[ -n "$CF_TOKEN" ]] || die "Cloudflare API token is required."
 printf '%s' "$CF_TOKEN" | gh secret set CLOUDFLARE_API_TOKEN --repo "$REPO"
 unset CF_TOKEN
@@ -88,5 +88,5 @@ else
   scripts/install-bashrc.sh
 fi
 
-printf '\\nWorkspace created:\\n  Repository: https://github.com/%s\\n  Local path: %s\\n  Worker: %s\\n' "$REPO" "$TARGET_DIR" "$PROJECT_NAME"
-printf '\\nNext:\\n  cd %q\\n  npm run dev\\n  workspace-push\\n' "$TARGET_DIR"
+printf '\nWorkspace created:\n  Repository: https://github.com/%s\n  Local path: %s\n  Worker: %s\n' "$REPO" "$TARGET_DIR" "$PROJECT_NAME"
+printf '\nNext:\n  cd %q\n  npm run dev\n  workspace-push\n' "$TARGET_DIR"
