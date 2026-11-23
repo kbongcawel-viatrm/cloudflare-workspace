@@ -53,16 +53,16 @@ Check `wrangler.jsonc` bindings and app docs; create missing pieces via
 ## 4. Podman services (only if `compose.yaml` exists)
 
 Project containers live in `projects/<name>/compose.yaml` — never add them
-to shared stacks. Format follows the vite-apps compose conventions:
-rootless podman, `network_mode: host` or `127.0.0.1` publishes, healthchecks,
-resource limits, secrets in gitignored files.
+to shared stacks. Follow the **`podman-project-container`** skill for the
+full procedure: registry whitelisting (`/etc/containers/policy.json` or
+project-local `containers-policy.json`), compose rules (`pull_policy:
+never`, resource limits — ask before cpu > 1.0 or memory > 256M),
+validation via `./scripts/podman-compose-host.sh ... config`, deploy via
+`./scripts/podman-compose-host.sh ... up -d`, and health verification via
+`./scripts/podman-host.sh ps|logs`.
 
-```bash
-cd projects/<name>
-podman-compose up -d --build [service]
-podman-compose ps|logs|down [service]
-```
-
+- All podman commands go through `scripts/podman-*-host.sh` wrappers —
+  they run on the host even from Toolbox.
 - Container creation/start/stop needs operator approval (polkit may prompt —
   let the operator approve).
 - Destructive compose ops (`down`, `rm`, prune) need explicit approval.
