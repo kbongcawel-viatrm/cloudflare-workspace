@@ -47,11 +47,12 @@ chmod 700 "$(dirname -- "$CONFIG")"
 if [[ -e "$CONFIG" ]]; then
   [[ ! -L "$CONFIG" ]] || die "Refusing to overwrite symlinked MCP config: $CONFIG"
   jq -e 'type == "object"' "$CONFIG" >/dev/null || die "Existing MCP config is not valid JSON: $CONFIG"
-  TMP="$(mktemp "${CONFIG}.XXXXXX")"
+  INPUT="$CONFIG"
 else
-  TMP="$(mktemp "${CONFIG}.XXXXXX")"
-  printf '{"mcpServers":{}}\n' > "$TMP"
+  INPUT="$(mktemp "${CONFIG}.XXXXXX")"
+  printf '{"mcpServers":{}}\n' > "$INPUT"
 fi
+TMP="$(mktemp "${CONFIG}.XXXXXX")"
 
 # Preserve existing unrelated server entries. Template entries intentionally
 # replace same-named servers so their endpoint/transport/security defaults stay current.
@@ -62,7 +63,8 @@ jq --slurpfile template "$TEMPLATE" --arg token "$GITHUB_TOKEN" '
     else
       del(.mcpServers.github.headers)
     end
-' "$CONFIG" > "$TMP"
+' "$INPUT" > "$TMP"
+[[ "$INPUT" == "$CONFIG" ]] || rm -f -- "$INPUT"
 chmod 600 "$TMP"
 mv -f -- "$TMP" "$CONFIG"
 unset GITHUB_TOKEN
