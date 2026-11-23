@@ -65,7 +65,7 @@ workspace-init <project-name> [--visibility private|public]
                [--domain app.example.com] [--user-bash-hook] [--skip-mcp]
 ```
 
-Creates `<authenticated-github-user>/<project-name>` from the `cloudflare-app-workspace` template, clones it into the current directory, sets the Wrangler Worker name, installs npm dependencies, configures GitHub Actions secrets, optionally configures a custom domain, installs a project Bash profile, and installs MCP definitions locally by default.
+Creates `<authenticated-github-user>/<project-name>` from the `cloudflare-app-workspace` template, clones it into `./projects/<project-name>`, sets the Wrangler Worker name, installs npm dependencies, configures GitHub Actions secrets, optionally configures a custom domain, installs a project Bash profile, and installs MCP definitions locally by default.
 
 | Flag | Description |
 |---|---|
