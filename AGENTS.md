@@ -12,5 +12,6 @@ This repository uses the shared, tool-neutral agent workspace under `.agents/`.
 - Never commit API keys, OAuth tokens, private keys, populated local MCP config, raw transcripts, or personal data.
 - Obtain explicit approval before deployment, DNS changes, Cloudflare account changes, resource creation/deletion, or permission changes.
 - Do not push Git changes without explicit operator approval.
+- Project containers live in `projects/<name>/compose.yaml`, not in shared stacks.
 - Inspect Git state and diffs before staging or committing. Preserve unrelated user work.
 - Validate changed code/configuration and report actual results.
