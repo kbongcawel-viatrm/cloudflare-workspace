@@ -28,8 +28,11 @@ whitelisted, add it together with the `localhost` image being built.
 ```
 
 Note: editing `/etc/containers/policy.json` needs root — ask the operator
-(polkit prompt) first. Alternative: the host wrappers honor a
-project-local `containers-policy.json` at the workspace root via
+(polkit prompt) first. If a command is blocked by permissions, prefix it
+with `run0` (e.g. `run0 jq empty /etc/containers/policy.json`) to trigger
+the operator's polkit authentication prompt, and tell the operator to
+approve it. Alternative: the host wrappers honor a project-local
+`containers-policy.json` at the workspace root via
 `CONTAINERS_POLICY_JSON`; prefer that when possible (no root needed).
 
 ## 2. Validate the policy file

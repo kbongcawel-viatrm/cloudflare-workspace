@@ -15,6 +15,9 @@ gates; never claim success without verification.
 - Podman only works on the host, NOT inside toolbox sessions — if
   `podman ps` fails with "cannot re-exec process to join the existing user
   namespace", ask the operator to run podman commands or reboot.
+- Permission-blocked commands: prefix with `run0` (e.g. `run0 <cmd>`) to
+  trigger the operator's polkit auth prompt — always tell the operator to
+  approve it. Destructive operations still need explicit approval first.
 
 ## 1. Validate (always first)
 
