@@ -1,0 +1,32 @@
+{
+  "name": "Cloudflare App Workspace",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": "npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "cloudflare.vscode-cloudflare",
+        "github.vscode-github-actions",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    },
+    "codespaces": {
+      "openFiles": ["README.md", "AGENTS.md"]
+    }
+  },
+  "forwardPorts": [8787],
+  "portsAttributes": {
+    "8787": {
+      "label": "Wrangler local dev",
+      "onAutoForward": "notify"
+    }
+  },
+  "remoteUser": "node"
+}

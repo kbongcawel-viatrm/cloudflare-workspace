@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cline/cline/main/schemas/mcp-settings.schema.json",
+  "mcpServers": {
+    "linear": {
+      "url": "https://mcp.linear.app/mcp/readonly",
+      "type": "streamableHttp",
+      "disabled": false,
+      "autoApprove": []
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/readonly",
+      "type": "streamableHttp",
+      "disabled": false,
+      "autoApprove": []
+    },
+    "cloudflare": {
+      "url": "https://mcp.cloudflare.com/mcp",
+      "type": "streamableHttp",
+      "disabled": false,
+      "autoApprove": []
+    },
+    "firecrawl": {
+      "url": "https://mcp.firecrawl.dev/v2/mcp-oauth",
+      "type": "streamableHttp",
+      "disabled": false,
+      "autoApprove": []
+    },
+    "jikida": {
+      "command": "npx",
+      "args": ["-y", "-p", "@jikida/mcp", "jikida-mcp"],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

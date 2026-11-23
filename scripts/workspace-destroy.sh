@@ -96,9 +96,9 @@ if [[ -n "$DOMAIN" && -n "$ZONE_ID" ]]; then
 fi
 
 echo "Matched Cloudflare resources:"
-echo "$DOMAIN_OBJECTS" | jq -r --arg h "$DOMAIN" --arg w "$PROJECT_NAME" '.result[]? | select(.hostname == $h and .service == $w) | "Worker domain: \(.id) \(.hostname)"'
-echo "$ROUTE_OBJECTS" | jq -r --arg w "$PROJECT_NAME" --arg h "$DOMAIN" '.result[]? | select(.script == $w and ($h == "" or .pattern == ($h + "/*") or .pattern == $h)) | "Route: \(.id) \(.pattern)"'
-echo "$DNS_OBJECTS" | jq -r --arg h "$DOMAIN" --arg t "$PROJECT_NAME.${WORKERS_DEV_SUBDOMAIN:-workers.dev}" '.result[]? | select(.name == $h and .type == "CNAME" and .content == $t) | "DNS: \(.id) \(.name) -> \(.content)"'
+echo "$DOMAIN_OBJECTS" | jq -r --arg h "$DOMAIN" --arg w "$PROJECT_NAME" '.result[]? | select(.hostname == $h and .service == $w) | "Worker domain: \\(.id) \\(.hostname)"'
+echo "$ROUTE_OBJECTS" | jq -r --arg w "$PROJECT_NAME" --arg h "$DOMAIN" '.result[]? | select(.script == $w and ($h == "" or .pattern == ($h + "/*") or .pattern == $h)) | "Route: \\(.id) \\(.pattern)"'
+echo "$DNS_OBJECTS" | jq -r --arg h "$DOMAIN" --arg t "$PROJECT_NAME.${WORKERS_DEV_SUBDOMAIN:-workers.dev}" '.result[]? | select(.name == $h and .type == "CNAME" and .content == $t) | "DNS: \\(.id) \\(.name) -> \\(.content)"'
 
 # Detach a Worker Domain only when hostname and Worker service both match.
 if [[ -n "$DOMAIN" ]]; then
@@ -129,4 +129,4 @@ fi
 cf_api DELETE "/accounts/$ACCOUNT_ID/workers/scripts/$PROJECT_NAME" >/dev/null
 gh repo delete "$REPO" --yes
 rm -rf -- "$ROOT"
-printf 'Destroyed %s and removed its local checkout.\n' "$REPO"
+printf 'Destroyed %s and removed its local checkout.\\n' "$REPO"
