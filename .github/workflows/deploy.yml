@@ -1,0 +1,75 @@
+name: Build and deploy Worker
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate locally (tests, types, build and Wrangler dry-run)
+        run: npm run validate
+
+      - name: Build
+        run: npm run build --if-present
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
+      - name: Publish deployment summary
+        if: success()
+        shell: bash
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+          CLOUDFLARE_SUBDOMAIN: ${{ vars.CLOUDFLARE_SUBDOMAIN }}
+        run: |
+          if [[ -n "$APP_URL" ]]; then
+            DEPLOYED_URL="$APP_URL"
+          elif [[ -n "$CLOUDFLARE_SUBDOMAIN" ]]; then
+            DEPLOYED_URL="https://${{ github.event.repository.name }}.$CLOUDFLARE_SUBDOMAIN.workers.dev"
+          else
+            DEPLOYED_URL="https://${{ github.event.repository.name }}.workers.dev"
+          fi
+          {
+            echo "## Deployment successful"
+            echo
+            echo "- **Application:** [$DEPLOYED_URL]($DEPLOYED_URL)"
+            echo "- **Worker:** ${{ github.event.repository.name }}"
+            echo "- **Commit:** ${{ github.sha }}"
+          } >> "$GITHUB_STEP_SUMMARY"
+          printf 'APP_URL=%s\n' "$DEPLOYED_URL" > deployment.env
+
+      - name: Upload deployment metadata
+        if: success()
+        uses: actions/upload-artifact@v6
+        with:
+          name: deployment-metadata
+          path: deployment.env
+          if-no-files-found: error
+          retention-days: 14
