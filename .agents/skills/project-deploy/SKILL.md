@@ -41,6 +41,16 @@ syntax, `npm test`, `tsc --noEmit`, build, and `wrangler deploy --dry-run`
   fix root cause), re-run `workspace-validate`, and only proceed once it
   is green. Never deploy around a failing check.
 
+`workspace-validate` flags for build issues (see README "Command
+reference"):
+
+- `--install` — run `npm install` first when `node_modules/` is missing
+  (use when deps are absent, e.g. fresh clone).
+- `--skip-wrangler` — skip ONLY the `wrangler deploy --dry-run` packaging
+  check; tests/typecheck/build still run. Use only as a diagnostic to
+  isolate whether the failure is Wrangler packaging vs app code — the
+  deploy gate still requires a full green run before proceeding.
+
 ## 2. Worker deploy — pick ONE, with approval
 
 - **GitHub Actions (default):** commit intended files only, `git push origin
