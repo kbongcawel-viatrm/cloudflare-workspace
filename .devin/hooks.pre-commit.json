@@ -1,0 +1,13 @@
+{
+  "PreToolUse": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "./scripts/pre-commit-security.sh",
+          "timeout": 300000
+        }
+      ]
+    }
+  ]
+}
