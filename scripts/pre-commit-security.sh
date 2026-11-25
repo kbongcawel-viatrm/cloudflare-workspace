@@ -17,15 +17,10 @@ block() {
   exit 0
 }
 
-SCAN_DIRS=()
-for d in projects scripts; do [[ -e "$d" ]] && SCAN_DIRS+=("$d"); done
-
 # 1. Safety (Python) scan
 if command -v safety >/dev/null 2>&1; then
-  if [[ ${#SCAN_DIRS[@]} -gt 0 ]]; then
-    if ! safety scan "${SCAN_DIRS[@]}" >/tmp/safety-out.txt 2>&1; then
-      block "Safety scan failed. Fix the reported security findings before committing. Logs in /tmp/safety-out.txt"
-    fi
+  if ! safety scan >/tmp/safety-out.txt 2>&1; then
+    block "Safety scan failed. Fix the reported security findings before committing. Logs in /tmp/safety-out.txt"
   fi
 else
   echo "pre-commit-security: safety not installed, skipping scan" >&2
@@ -33,10 +28,8 @@ fi
 
 # 2. Snyk scan
 if command -v snyk >/dev/null 2>&1; then
-  if [[ ${#SCAN_DIRS[@]} -gt 0 ]]; then
-    if ! snyk test --all-projects --org=99aa9ed1-3e50-435f-9876-9b07cb97400b "${SCAN_DIRS[@]}" >/tmp/snyk-out.txt 2>&1; then
-      block "Snyk scan failed. Fix the reported security findings before committing. Logs in /tmp/snyk-out.txt"
-    fi
+  if ! snyk test --all-projects --org=99aa9ed1-3e50-435f-9876-9b07cb97400b >/tmp/snyk-out.txt 2>&1; then
+    block "Snyk scan failed. Fix the reported security findings before committing. Logs in /tmp/snyk-out.txt"
   fi
 else
   echo "pre-commit-security: snyk not installed, skipping scan" >&2
