@@ -1,17 +1,66 @@
 # Cloudflare App Workspace
-![Cloudflare](https://img.shields.io/badge/CLOUDFLARE_PAGES-F38020)
-![Cloudflare Workers](https://img.shields.io/badge/CLOUDFLARE_WORKERS-F38020)
-![Vite](https://img.shields.io/badge/VITE-9135FF)
-![Javascript](https://img.shields.io/badge/JAVASCRIPT-997a00)
 
-## Repository
-![GitHub repo](https://github-readme-insight-terminal-asci.vercel.app/svg/repo?repo=kbongcawel-viatrm/cloudflare-workspace&theme=mac)
 
-## Stack
-![Skills](https://github-readme-insight-terminal-asci.vercel.app/svg/skills?i=vite,react,cloudflare,cloudflareworkers,githubactions,github,&theme=mac&perline=10)
+ <img
+  width="100%"
+  alt="Home Security Terminal"
+  src="https://github.com/user-attachments/assets/99442cc3-31b6-4b4e-ba20-3d720768d4b3"
+/>
+![Cloudflare](https://img.shields.io/badge/cloudflare-994c00)
+![Cloudflare Workers](https://img.shields.io/badge/cloudflare_workers-994c00)
+![Vite](https://img.shields.io/badge/vite-9135FF)
+![Javascript](https://img.shields.io/badge/javascript-fcb103)
+![devin](https://img.shields.io/badge/made_with-devinai-000000)
 
-## Last commit
-![Recent commits](https://github-readme-insight-terminal-asci.vercel.app/svg/git-log?user=kbongcawel-viatrm&theme=mac&lines=3)
+<p align="right">  
+  <sub>  
+    <b>Assisted by:&nbsp;</b>  
+    <a href="https://devin.ai">  
+      <img  
+        width="100"  
+        alt="Devin"  
+        src="https://github.com/user-attachments/assets/7e1fd9e8-d230-454d-83bd-7957f639c658"  
+        align="absmiddle"  
+      />  
+    </a> 
+  </sub>  
+</p>  
+
+
+<h1>
+
+<p align="left">
+  <img width="77" height="77" alt="tinker" src="https://github.com/user-attachments/assets/20358a66-c385-4e56-bd35-b7abfee81fd1" valign="middle" />
+  &nbsp;➕&nbsp;
+  <img width="120" alt="Devin" src="https://github.com/user-attachments/assets/7e1fd9e8-d230-454d-83bd-7957f639c658" valign="middle" />
+</p>  
+</h1>
+
+> [!WARNING]
+>
+> <img width="77" height="77" alt="tinker" src="https://github.com/user-attachments/assets/20358a66-c385-4e56-bd35-b7abfee81fd1" />
+>
+> *"Welcome to our workspace, this is where I created my tools for mass destruction!"* — Tinker<br>
+> *"Ha — noted, the wrench/battery vs screwdriver/flashlight alliance! ⚡🔧"* — Devin<br>
+> 🔧╰[ ⁰﹏⁰ ]╯🔋  🪛┗[© ♒ ©]┛🪫
+
+![tinker](https://img.shields.io/badge/tinker-fcb103)
+![author](https://img.shields.io/badge/role-author-267326)
+![developer](https://img.shields.io/badge/works_as-developer-ffffff)
+![devin](https://img.shields.io/badge/devin-000000)
+![author](https://img.shields.io/badge/role-AI-267326)
+![ai](https://img.shields.io/badge/works_as-ai_tool-ffffff)
+<h1>
+   <p align="left"> 🚀 Commit Activity </p>
+</h1>
+
+> ![GitHub contribution graph](https://github-readme-insight-terminal-asci.vercel.app/svg/graph?user=kbongcawel-viatrm&theme=mac&scale=0.5)
+
+<h1>
+📝 Last commit
+</h1>
+
+> ![Recent commits](https://github-readme-insight-terminal-asci.vercel.app/svg/git-log?user=kbongcawel-viatrm&theme=mac&lines=3scale=0.3)
 
 Reusable starter for GitHub + GitHub Actions + Cloudflare Workers projects, including Codespaces and a portable AI-agent workspace.
 
@@ -290,7 +339,3 @@ The generated `.bashrc` imports portable terminal/status helpers only. The origi
 
 Run `workspace-validate` before pushing. It performs Bash and JavaScript syntax checks, `npm test`, TypeScript type-check, application build, and Wrangler packaging dry-run. It does not deploy or change Cloudflare resources. The same validation command is used by GitHub Actions before deployment.
 
-## Author
-![ASCII avatar](https://github-readme-insight-terminal-asci.vercel.app/svg/ascii?user=kbongcawel-viatrm&theme=mac&cols=24&color=1)
-
-<img src="https://github-readme-insight-terminal-asci.vercel.app/svg/ascii?user=kbongcawel-viatrm&amp;theme=mac&amp;cols=24&amp;color=1" alt="ASCII avatar">
