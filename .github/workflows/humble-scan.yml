@@ -1,0 +1,58 @@
+name: Humble header scan
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # daily, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  humble-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout humble
+        run: git clone --depth 1 https://github.com/rfc-st/humble /tmp/humble
+
+      - name: Install humble dependencies
+        run: pip install -r /tmp/humble/requirements.txt
+
+      - name: Scan endpoints
+        run: |
+          mkdir -p results
+          # name|url|follow-redirects(0/1) — Access-gated hosts use -df so
+          # humble analyzes our edge response, not the Access login page.
+          TARGETS=(
+            "home-security.uk|https://home-security.uk/|0"
+            "bio|https://bio.home-security.uk/|1"
+            "v2|https://v2.home-security.uk/|1"
+            "gondar|https://gondar.home-security.uk/|0"
+            "shadow-fiend|https://shadow-fiend.home-security.uk/|1"
+            "files|https://files.home-security.uk/|0"
+            "natures-prophet|https://natures-prophet.home-security.uk/|0"
+            "status|https://status.home-security.uk/|0"
+            "totp|https://totp.home-security.uk/|0"
+          )
+          rc=0
+          for t in "${TARGETS[@]}"; do
+            IFS='|' read -r name url follow <<< "$t"
+            flags="-u $url -b"
+            [ "$follow" = "0" ] && flags="$flags -df"
+            echo "=== scanning $name ($url) ==="
+            if (cd /tmp/humble && python3 humble.py $flags) > "results/$name" 2>&1; then
+              grep -E 'Analysis Grade|Findings to review' "results/$name" || true
+            else
+              echo "scan failed for $name" >&2
+              rc=1
+            fi
+          done
+          exit $rc
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: humble-results-${{ github.run_id }}
+          path: results/
+          retention-days: 90
