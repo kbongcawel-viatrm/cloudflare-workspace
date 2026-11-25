@@ -6,7 +6,7 @@
 # Usage: scripts/security-headers-audit.sh [-v]
 # Exit 0 = all checks pass, 1 = one or more failures.
 #
-# Discovery: if CF_API_TOKEN + CLOUDFLARE_ZONE_ID are available (env or
+# Discovery: if CLOUDFLARE_API_TOKEN + CLOUDFLARE_ZONE_ID are available (env or
 # ~/.config/cf-creds.env), hosts and workers are enumerated live via the
 # Cloudflare API. Otherwise falls back to the static lists below — keep
 # them in sync when adding hosts/workers.
@@ -17,7 +17,7 @@ VERBOSE=0
 
 # Optional credentials (never required for the checks themselves)
 [ -f "$HOME/.config/cf-creds.env" ] && . "$HOME/.config/cf-creds.env"
-CF_API_TOKEN="${CF_API_TOKEN:-}"
+CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-}"
 CF_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-}"
 CF_ZONE_ID="${CF_ZONE_ID:-f5c4bcafdbbd8b96b8d9b584d0523535}"
 CF_ZONE_NAME="home-security.uk"
@@ -39,14 +39,14 @@ STATIC_WORKERS=(
 cf_api() { # cf_api METHOD PATH [JSON_BODY]
   local method="$1" path="$2" body="${3:-}"
   local args=(-sS --max-time 20 -X "$method"
-    -H "Authorization: Bearer $CF_API_TOKEN"
+    -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
     -H "Content-Type: application/json")
   [ -n "$body" ] && args+=(-d "$body")
   curl "${args[@]}" "https://api.cloudflare.com/client/v4$path"
 }
 
 ZONE_HOSTS=(); WORKERS_DEV=()
-if [ -n "$CF_API_TOKEN" ]; then
+if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
   echo "== Discovery via Cloudflare API =="
   dns_json=$(cf_api GET "/zones/$CF_ZONE_ID/dns_records?per_page=500" 2>/dev/null) || dns_json=""
   if [ -n "$dns_json" ]; then
@@ -66,7 +66,7 @@ for s in d.get("result",[]): print(s["id"])' 2>/dev/null)
   fi
   [ ${#ZONE_HOSTS[@]} -eq 0 ] && { echo "WARN: API discovery failed, using static lists"; ZONE_HOSTS=("${STATIC_HOSTS[@]}"); WORKERS_DEV=("${STATIC_WORKERS[@]}"); }
 else
-  echo "== Static host/worker lists (no CF_API_TOKEN) =="
+  echo "== Static host/worker lists (no CLOUDFLARE_API_TOKEN) =="
   ZONE_HOSTS=("${STATIC_HOSTS[@]}"); WORKERS_DEV=("${STATIC_WORKERS[@]}")
 fi
 
