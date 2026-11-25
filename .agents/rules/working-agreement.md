@@ -21,7 +21,9 @@
   rendering pipelines, external page builders, or runtime dependencies that
   aren't needed. Dynamic data should be fetched client-side from JSON APIs.
 - Never store credentials, tokens, OAuth state, cookies, personal details, raw transcripts, or customer payloads in Git.
+- Worker-to-Worker and Worker-to-Cloudflare-service calls MUST use service bindings (`env.X.fetch()`), never public hostnames/URLs — keeps traffic off the public internet and inherits the caller's trust boundary. Applies to all current and future Workers in this workspace.
 - Do not deploy, modify DNS, create billable resources, change security policy, or change permissions without explicit operator approval.
+- HTTP security headers are a MUST: every response on `*.home-security.uk` must carry the baseline set defined in `.agents/rules/security-headers.md`. Stricter is allowed, weaker is not. Verify with `curl -sI` after any header-affecting change.
 
 ## Git and release controls
 - Inspect the worktree before editing, staging, or committing.

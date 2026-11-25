@@ -12,6 +12,11 @@
           "type": "command",
           "command": "./scripts/pre-deploy-build.sh",
           "timeout": 180000
+        },
+        {
+          "type": "command",
+          "command": "./scripts/pre-push-security-audit.sh",
+          "timeout": 120000
         }
       ]
     }

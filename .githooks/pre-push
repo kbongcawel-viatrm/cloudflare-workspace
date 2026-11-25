@@ -19,4 +19,15 @@ else
   echo "pre-push: no workspace-validate.sh found, skipping" >&2
 fi
 echo "pre-push: validation passed" >&2
+
+# Live security-headers audit — verifies MUST header baseline on all zone
+# hosts and that workers.dev endpoints stay disabled. Bypass with --no-verify.
+if [[ -x scripts/security-headers-audit.sh ]]; then
+  echo "pre-push: running security-headers-audit.sh" >&2
+  if ! bash scripts/security-headers-audit.sh; then
+    echo "pre-push: security audit failed, push blocked" >&2
+    exit 1
+  fi
+  echo "pre-push: security audit passed" >&2
+fi
 exit 0
