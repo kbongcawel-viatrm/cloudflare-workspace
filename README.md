@@ -1,7 +1,8 @@
 # Cloudflare App Workspace
-![Cloudflare](https://img.shields.io/badge/just%20the%20message-F38020)
-![Cloudflare Workers](https://img.shields.io/badge/just%20the%20message-F38020)
-![Vite](https://img.shields.io/badge/just%20the%20message-9135FF)
+![Cloudflare](https://img.shields.io/badge/CLOUDFLARE_PAGES-F38020)
+![Cloudflare Workers](https://img.shields.io/badge/CLOUDFLARE_WORKERS-F38020)
+![Vite](https://img.shields.io/badge/VITE-9135FF)
+![Javascript](https://img.shields.io/badge/JAVASCRIPT-997a00)
 
 ## Repository
 ![GitHub repo](https://github-readme-insight-terminal-asci.vercel.app/svg/repo?repo=kbongcawel-viatrm/cloudflare-workspace&theme=mac)
